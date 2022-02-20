@@ -8,6 +8,14 @@ const Login = () => {
 
     const dispatch = useDispatch()
     const handleSubmit = e =>{
+        if(email === ''){
+            alert('아이디를 입력해주세요')
+            return false
+        }
+        if(password === ''){
+            alert('비밀번호를 입력해주세요')
+            return false
+        }
         e.preventDefault()
         console.log(email)
         const data = fetch(`http://localhost:3000/user/login`,{
@@ -28,8 +36,11 @@ const Login = () => {
                 loggedIn:true,
         }))
             }else{
-                alert('fail login')
+                alert('등록되지 않은 아이디이거나 아이디 또는 비밀번호를 잘못 입력하였습니다')
             }
+        })
+        .catch(error => {
+            console.log(error)
         })
         if(data.error){
           return
