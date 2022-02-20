@@ -3,16 +3,22 @@ import { useDispatch } from 'react-redux'
 import { login } from '../features/userSlice'
 
 const Login = () => {
+    function isBlank(value){
+        if(value === '' || value === undefined || value === null){
+            return false
+        }
+        return true
+    }
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const dispatch = useDispatch()
     const handleSubmit = e =>{
-        if(email === ''){
-            alert('아이디를 입력해주세요')
+        if(!isBlank(email)){
+            alert('이메일을 입력해주세요')
             return false
         }
-        if(password === ''){
+        if(!isBlank(password)){
             alert('비밀번호를 입력해주세요')
             return false
         }
