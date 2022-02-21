@@ -1,19 +1,14 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { login } from '../features/userSlice'
+import { LOGIN } from '../features/userSlice'
+import { isBlank, fetchPost, checkStatusAndParse } from '../common'
 
 const Login = () => {
-    function isBlank(value){
-        if(value === '' || value === undefined || value === null){
-            return false
-        }
-        return true
-    }
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
     const dispatch = useDispatch()
     const handleSubmit = e =>{
+        e.preventDefault()
         if(!isBlank(email)){
             alert('이메일을 입력해주세요')
             return false
@@ -22,21 +17,15 @@ const Login = () => {
             alert('비밀번호를 입력해주세요')
             return false
         }
-        e.preventDefault()
         console.log(email)
-        const data = fetch(`http://localhost:3000/user/login`,{
-            method : "POST",
-            headers: { 'Content-Type': 'application/json; charset=utf-8', 'dataType': 'json', },
-            body: JSON.stringify({
-                email:email,
-                password:password
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
+        const requestBody = {
+            email:email,
+            password:password
+        }
+        const login = data => {
             console.log(data)
             if(data.resultCode === 200){
-                dispatch(login({
+                dispatch(LOGIN({
                 email:email,
                 password:password,
                 loggedIn:true,
@@ -44,14 +33,11 @@ const Login = () => {
             }else{
                 alert('등록되지 않은 아이디이거나 아이디 또는 비밀번호를 잘못 입력하였습니다')
             }
-        })
-        .catch(error => {
-            console.log(error)
-        })
-        if(data.error){
-          return
         }
-
+        fetchPost(`http://localhost:3000/user/login`,requestBody)
+        .then(checkStatusAndParse)
+        .then(login)
+        .catch(error => console.log(error))
     }
   return (
     <div>
