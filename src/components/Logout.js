@@ -1,9 +1,10 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { LOGOUT, selectUser } from '../features/userSlice'
+import { useDispatch } from 'react-redux'
+// import { LOGOUT, selectUser } from '../features/userSlice'
+import {LOGOUT} from '../store/modules/user'
 
 function Logout() {
-    const user = useSelector(selectUser)
+    // const user = useSelector(selectUser)
     const dispatch = useDispatch()
     const handleLogout = e =>{
         e.preventDefault()
@@ -11,7 +12,8 @@ function Logout() {
     }
   return (
     <div>
-        환영합니다.{user.name}
+        환영합니다.
+        {/* {user.name} */}
         <button onClick={e=>handleLogout(e)}>로그아웃</button>
     </div>
   )

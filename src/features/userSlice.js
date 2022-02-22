@@ -8,9 +8,15 @@ export const userSlice = createSlice({
     reducers:{
         LOGIN:(state, action) =>{
             state.user = action.payload
+            // if(token){
+            //     token = localStorage.setItem('token', token)
+            // }else{
+            //     token = localStorage.removeItem('token')
+            // }
         },
         LOGOUT:(state) =>{
             state.user = null
+
         }
     }
 })

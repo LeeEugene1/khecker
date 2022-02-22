@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { LOGIN } from '../features/userSlice'
+// import { LOGIN } from '../features/userSlice'
+import {LOGIN} from '../store/modules/user'
 import { isBlank, fetchPost, checkStatusAndParse } from '../common'
 
 const Login = () => {
@@ -18,17 +19,20 @@ const Login = () => {
             return false
         }
         console.log(email)
+        // const token = localStorage.getItem('token')
         const requestBody = {
             email:email,
-            password:password
+            password:password,
+            // token:token,
         }
         const login = data => {
             console.log(data)
-            if(data.resultCode === 200){
+            if(data.error === false){
                 dispatch(LOGIN({
                 email:email,
                 password:password,
-                loggedIn:true,
+                // loggedIn:true,
+                // token:localStorage.setItem("token", token),
         }))
             }else{
                 alert('등록되지 않은 아이디이거나 아이디 또는 비밀번호를 잘못 입력하였습니다')
