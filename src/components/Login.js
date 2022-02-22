@@ -18,12 +18,9 @@ const Login = () => {
             alert('비밀번호를 입력해주세요')
             return false
         }
-        console.log(email)
-        // const token = localStorage.getItem('token')
         const requestBody = {
             email:email,
             password:password,
-            // token:token,
         }
         const login = data => {
             console.log(data)
@@ -32,7 +29,7 @@ const Login = () => {
                 email:email,
                 password:password,
                 // loggedIn:true,
-                // token:localStorage.setItem("token", token),
+                token:data.token,
         }))
             }else{
                 alert('등록되지 않은 아이디이거나 아이디 또는 비밀번호를 잘못 입력하였습니다')

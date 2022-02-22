@@ -6,19 +6,20 @@
 const USER_LOGIN = 'user/LOGIN';
 const USER_LOGOUT = 'user/LOGOUT'
 //액션생성함수
-export function LOGIN({email,password}){
+export function LOGIN({email,password,token}){
     return{
         type:USER_LOGIN,
         payload:{
             email,
             password,
+            token:localStorage.setItem('token',token)
         },
-
     }
 }
 export function LOGOUT(){
     return{
         type:USER_LOGOUT,
+        // token:localStorage.removeItem('token')
     }
 }
 
@@ -41,7 +42,6 @@ export default function user (state = initialState, action){
             }
         case USER_LOGOUT:
             return{
-                ...state,
                 user:null
             }
         default:
