@@ -5,21 +5,26 @@
 //액션타입(문자열)
 const USER_LOGIN = 'user/LOGIN';
 const USER_LOGOUT = 'user/LOGOUT'
+const is_logined = localStorage.getItem('is_logined')
+
 //액션생성함수
-export function LOGIN({email,password,token}){
+export function LOGIN({email,password,nickname,token,is_logined}){
     return{
         type:USER_LOGIN,
         payload:{
             email,
             password,
-            token:localStorage.setItem('token',token)
+            // token:localStorage.setItem('token',token),
+            // nickname:localStorage.setItem('token',nickname),
+            // is_logined:localStorage.setItem('is_logined',is_logined)
+            nickname:sessionStorage.setItem('nickname',nickname),
+            is_logined:sessionStorage.setItem('is_logined',is_logined)
         },
     }
 }
 export function LOGOUT(){
     return{
         type:USER_LOGOUT,
-        // token:localStorage.removeItem('token')
     }
 }
 
@@ -27,7 +32,7 @@ export function LOGOUT(){
 const initialState = {
     // email:null,
     // password:null,
-    user:null
+    user: is_logined ? true : null
 }
 
 //리듀서
@@ -42,7 +47,9 @@ export default function user (state = initialState, action){
             }
         case USER_LOGOUT:
             return{
-                user:null
+                user:sessionStorage.removeItem('is_logined'),
+                // user:localStorage.removeItem('is_logined'),
+
             }
         default:
             return state

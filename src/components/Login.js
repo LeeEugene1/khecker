@@ -3,7 +3,9 @@ import { useDispatch } from 'react-redux'
 // import { LOGIN } from '../features/userSlice'
 import {LOGIN} from '../store/modules/user'
 import { isBlank, fetchPost, checkStatusAndParse } from '../common'
+// import ReactSession from 'react-client-session';
 
+// ReactSession.setStoreType("sessionStorage");
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -29,7 +31,10 @@ const Login = () => {
                 email:email,
                 password:password,
                 // loggedIn:true,
-                token:data.token,
+                // token:data.token,
+                nickname:data.nickname,
+                is_logined:data.is_logined,
+                // cookieeeee:ReactSession.set("username", "Bob")
         }))
             }else{
                 alert('등록되지 않은 아이디이거나 아이디 또는 비밀번호를 잘못 입력하였습니다')
