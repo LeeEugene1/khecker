@@ -1,35 +1,41 @@
-import React, { useState } from 'react'
+// import useFetch from '../hooks/useFetch'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-// import { LOGIN } from '../features/userSlice'
 import {LOGIN} from '../store/modules/user'
-import { isBlank, fetchPost, checkStatusAndParse } from '../common'
-// import ReactSession from 'react-client-session';
+import { checkStatusAndParse, fetchPost, isBlank,  } from '../common'
+import useSessionStorage from '../hooks/useSessionStorage';
+function Login() {
+    // hook example
+    const [storedTheme, setTheme] = useSessionStorage("theme");
+    useEffect(()=>{
+      setTheme("dark")
+    },[setTheme])
 
-// ReactSession.setStoreType("sessionStorage");
-const Login = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [state, setState] = useState({
+        email:'',
+        password:''
+    })
     const dispatch = useDispatch()
     const handleSubmit = e =>{
         e.preventDefault()
-        if(!isBlank(email)){
+        if(!isBlank(state.email)){
             alert('이메일을 입력해주세요')
             return false
         }
-        if(!isBlank(password)){
+        if(!isBlank(state.password)){
             alert('비밀번호를 입력해주세요')
             return false
         }
         const requestBody = {
-            email:email,
-            password:password,
+            email:state.email,
+            password:state.password,
         }
         const login = data => {
             console.log(data)
             if(data.error === false){
                 dispatch(LOGIN({
-                email:email,
-                password:password,
+                email:state.email,
+                password:state.password,
                 // loggedIn:true,
                 // token:data.token,
                 nickname:data.nickname,
@@ -39,26 +45,39 @@ const Login = () => {
             }else{
                 alert('등록되지 않은 아이디이거나 아이디 또는 비밀번호를 잘못 입력하였습니다')
             }
+            return data
         }
         fetchPost(`http://localhost:3000/user/login`,requestBody)
         .then(checkStatusAndParse)
         .then(login)
+        .then(data => console.log(`dsfsdfsdfsdfsdf${data.is_logined}`))
         .catch(error => console.log(error))
     }
   return (
     <div>
+        {/* {loading && <span>Loading...</span>}
+        {!loading && error ? (
+            <span>Error in fetching data...</span>
+        ) : <span>로그인 성공{JSON.stringify(data)}</span>} */}
         <form onSubmit={e => handleSubmit(e)}>
             <input 
+                name="email"
                 type="text" 
                 placeholder="email" 
-                value={email} 
-                onChange={e => setEmail(e.target.value)
+                value={state.email} 
+                onChange={e => setState({
+                    ...state,
+                    [e.target.name]:e.target.value})
             }/>
             <input 
+                name="password"
                 type="password" 
                 placeholder="password" 
-                value={password} 
-                onChange={e => setPassword(e.target.value)}
+                value={state.password} 
+                onChange={e => setState({
+                    ...state,
+                    [e.target.name]:e.target.value})
+                }
             />
             <input type="submit" value="로그인"/>
         </form>
