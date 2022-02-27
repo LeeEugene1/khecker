@@ -7,9 +7,8 @@ import Logout from './components/Logout';
 // import axios from 'axios'
 
 function App() {
+
   const user = useSelector(state => state.user.user)
-  // const is_logined = sessionStorage.getItem('is_logined')
-  // const is_logined = localStorage.getItem('is_logined')
 
   // const baseURL = 'http://localhost:3000/article/61f81fda54a285b7a9ab847a';
   // fetch(baseURL)

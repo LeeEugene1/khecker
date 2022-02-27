@@ -1,8 +1,9 @@
 // import useFetch from '../hooks/useFetch'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import {LOGIN} from '../store/modules/user'
-import { checkStatusAndParse, fetchPost, isBlank,  } from '../common'
+import { isBlank, } from '../common'
 import useSessionStorage from '../hooks/useSessionStorage';
 function Login() {
     // hook example
@@ -32,25 +33,24 @@ function Login() {
         }
         const login = data => {
             console.log(data)
-            if(data.error === false){
+            alert('dfdfdfd')
+            if(data.data.error === false){
+                alert('hi')
                 dispatch(LOGIN({
                 email:state.email,
                 password:state.password,
                 // loggedIn:true,
                 // token:data.token,
-                nickname:data.nickname,
-                is_logined:data.is_logined,
+                nickname:data.data.nickname,
+                is_logined:data.data.is_logined,
                 // cookieeeee:ReactSession.set("username", "Bob")
         }))
             }else{
                 alert('등록되지 않은 아이디이거나 아이디 또는 비밀번호를 잘못 입력하였습니다')
             }
-            return data
         }
-        fetchPost(`http://localhost:3000/user/login`,requestBody)
-        .then(checkStatusAndParse)
+        axios.post("http://localhost:3000/user/login",requestBody)
         .then(login)
-        .then(data => console.log(`dsfsdfsdfsdfsdf${data.is_logined}`))
         .catch(error => console.log(error))
     }
   return (
