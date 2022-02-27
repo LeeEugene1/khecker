@@ -1,10 +1,10 @@
 // import useFetch from '../hooks/useFetch'
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import {LOGIN} from '../store/modules/user'
 import { isBlank, } from '../common'
 import useSessionStorage from '../hooks/useSessionStorage';
+import axiosWrapper from '../modules/axiosWrapper'
 function Login() {
     // hook example
     const [storedTheme, setTheme] = useSessionStorage("theme");
@@ -27,31 +27,28 @@ function Login() {
             alert('비밀번호를 입력해주세요')
             return false
         }
+        const url = 'http://localhost:3000/user/login'
         const requestBody = {
             email:state.email,
             password:state.password,
         }
         const login = data => {
-            console.log(data)
-            alert('dfdfdfd')
-            if(data.data.error === false){
-                alert('hi')
-                dispatch(LOGIN({
+            if(!data){
+                alert('등록되지 않은 아이디이거나 아이디 또는 비밀번호를 잘못 입력하였습니다')
+                return false
+            }
+            dispatch(LOGIN({
                 email:state.email,
                 password:state.password,
                 // loggedIn:true,
                 // token:data.token,
-                nickname:data.data.nickname,
-                is_logined:data.data.is_logined,
+                nickname:data.nickname,
+                is_logined:data.is_logined,
                 // cookieeeee:ReactSession.set("username", "Bob")
-        }))
-            }else{
-                alert('등록되지 않은 아이디이거나 아이디 또는 비밀번호를 잘못 입력하였습니다')
-            }
+            }))
         }
-        axios.post("http://localhost:3000/user/login",requestBody)
+        axiosWrapper('POST',url,requestBody)
         .then(login)
-        .catch(error => console.log(error))
     }
   return (
     <div>
