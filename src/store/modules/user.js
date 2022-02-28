@@ -3,8 +3,9 @@
 //리듀서는 최종적으로 스토어를 변경시킨다
 
 //액션타입(문자열)
-const USER_LOGIN = 'user/LOGIN';
-const USER_LOGOUT = 'user/LOGOUT'
+export const HOST = 'http://localhost:3000'
+export const USER_LOGIN = 'user/LOGIN'
+export const USER_LOGOUT = 'user/LOGOUT'
 const is_logined = sessionStorage.getItem('is_logined')
 
 //액션생성함수

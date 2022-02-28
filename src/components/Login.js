@@ -1,16 +1,18 @@
 // import useFetch from '../hooks/useFetch'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import {LOGIN} from '../store/modules/user'
-import { isBlank, } from '../common'
+import { HOST, LOGIN, USER_LOGIN} from '../store/modules/user'
+import { isBlank } from '../common'
 import useSessionStorage from '../hooks/useSessionStorage';
 import axiosWrapper from '../modules/axiosWrapper'
+import useWindowWidth from '../hooks/useWindowWidth';
 function Login() {
     // hook example
     const [storedTheme, setTheme] = useSessionStorage("theme");
     useEffect(()=>{
       setTheme("dark")
     },[setTheme])
+    const width = useWindowWidth()
 
     const [state, setState] = useState({
         email:'',
@@ -19,15 +21,10 @@ function Login() {
     const dispatch = useDispatch()
     const handleSubmit = e =>{
         e.preventDefault()
-        if(!isBlank(state.email)){
-            alert('이메일을 입력해주세요')
-            return false
-        }
-        if(!isBlank(state.password)){
-            alert('비밀번호를 입력해주세요')
-            return false
-        }
-        const url = 'http://localhost:3000/user/login'
+        if(!isBlank(state.email,'이메일을 입력해주세요'))return false
+        if(!isBlank(state.password,'비밀번호를 입력해주세요'))return false
+        
+        const url = `${HOST}/${USER_LOGIN}`
         const requestBody = {
             email:state.email,
             password:state.password,
@@ -76,7 +73,7 @@ function Login() {
                     [e.target.name]:e.target.value})
                 }
             />
-            <input type="submit" value="로그인"/>
+            <input type="submit" value="로그인"/>{width}
         </form>
     </div>
   )
