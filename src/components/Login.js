@@ -1,4 +1,5 @@
 // import useFetch from '../hooks/useFetch'
+import logo from './logo.png'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { HOST, LOGIN, USER_LOGIN} from '../store/modules/user'
@@ -6,6 +7,7 @@ import { isBlank } from '../common'
 import useSessionStorage from '../hooks/useSessionStorage';
 import axiosWrapper from '../modules/axiosWrapper'
 import useWindowWidth from '../hooks/useWindowWidth';
+import Button from './button'
 function Login() {
     // hook example
     const [storedTheme, setTheme] = useSessionStorage("theme");
@@ -48,7 +50,8 @@ function Login() {
         .then(login)
     }
   return (
-    <div>
+    <nav>
+        <img src={logo}></img>
         {/* {loading && <span>Loading...</span>}
         {!loading && error ? (
             <span>Error in fetching data...</span>
@@ -73,9 +76,10 @@ function Login() {
                     [e.target.name]:e.target.value})
                 }
             />
-            <input type="submit" value="로그인"/>{width}
+            <Button type="submit">로그인</Button>{width}
+
         </form>
-    </div>
+    </nav>
   )
 }
 
