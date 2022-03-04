@@ -1,11 +1,11 @@
 import React from "react"; 
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 const StyledButton = styled.button`
 min-width: 100px;
 /* display: inline-flex;  */
 outline: none; 
-border: none; 
+border: 1px solid #1FBB9C; 
 border-radius: 4px; 
 color: #fff; 
 cursor: pointer; 
@@ -18,7 +18,13 @@ background: #1FBB9C;
 &:hover { background: #339af0; }
 &:active { background: #1c7ed6; } 
 /* 기타 */ 
-& + & { margin-left: 1rem; } `; 
+& + & { margin-left: 1rem; } 
+
+${props => props.primary && css`
+    background:#fff;
+    color:#1FBB9C;
+`}
+`; 
 
 export default function Button({ children, ...rest }) { 
     return <StyledButton {...rest}>{children}</StyledButton>; 

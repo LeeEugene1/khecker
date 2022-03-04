@@ -76,7 +76,8 @@ function Login() {
                     [e.target.name]:e.target.value})
                 }
             />
-            <Button type="submit">로그인</Button>{width}
+            <Button type="submit">로그인</Button>
+            <Button primary>회원가입</Button>{width}
 
         </form>
     </nav>

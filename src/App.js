@@ -1,9 +1,13 @@
-import { useSelector } from 'react-redux';
-import './App.css';
-import './index.css';
-import './default.css';
-import Login from './components/Login';
-import Logout from './components/Logout';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import './App.css'
+import './index.css'
+import './default.css'
+import Login from './components/Login'
+import Logout from './components/Logout'
+import Home from './components/Home'
+import Qna from './components/Qna'
+import NotFound from './components/NotFound'
 // import axios from 'axios'
 
 function App() {
@@ -19,11 +23,15 @@ function App() {
   //   document.querySelector("#pre").innerHTML = JSON.stringify(data, null, 2);
   // }
   return (
-    <div className="App">
+    <BrowserRouter>
+		{user ? <Logout/> : <Login/>}
+      <Routes>
 {/* <div id="pre"></div> */}
-    {user ? <Logout/> : <Login/>}
-
-    </div>
+		<Route path='/' element={<Home/>} /> 
+		<Route path='/qna' element={<Qna/>} /> 
+		<Route path='*' element={<NotFound/>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
