@@ -1,6 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import {LOGOUT} from '../store/modules/user'
+import Button from './styled/button'
+import logo from './logo.png'
 
 function Logout() {
     const dispatch = useDispatch()
@@ -9,11 +11,12 @@ function Logout() {
         dispatch(LOGOUT())
     }
   return (
-    <div>
-        환영합니다.
+    <nav>
+        <a href="/"><img src={logo}/></a>
+        <a href="/qna">궁금해요</a>
         {/* {user.name} */}
-        <button onClick={e=>handleLogout(e)}>로그아웃</button>
-    </div>
+        <Button onClick={e=>handleLogout(e)}>로그아웃</Button>
+    </nav>
   )
 }
 

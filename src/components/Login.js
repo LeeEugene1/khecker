@@ -51,7 +51,8 @@ function Login() {
     }
   return (
     <nav>
-        <img src={logo}></img>
+        <a href="/"><img src={logo}/></a>
+        <a href="/qna">궁금해요</a>
         {/* {loading && <span>Loading...</span>}
         {!loading && error ? (
             <span>Error in fetching data...</span>
@@ -78,7 +79,6 @@ function Login() {
             />
             <Button type="submit">로그인</Button>
             <Button primary>회원가입</Button>{width}
-
         </form>
     </nav>
   )
