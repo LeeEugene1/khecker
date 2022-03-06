@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import './App.css'
-import './index.css'
+import './index.scss'
 import './default.css'
 import Login from './components/Login'
 import Logout from './components/Logout'
