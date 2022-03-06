@@ -1,14 +1,10 @@
 // import useFetch from '../hooks/useFetch'
-import logo from './logo.png'
 import React, { useEffect, useState } from 'react'
 import useSessionStorage from '../hooks/useSessionStorage';
 import useWindowWidth from '../hooks/useWindowWidth';
+import Menu from './Menu';
 import Modal from './Modal'
 function Login() {
-    const [modal, setModal] = useState(false)
-    const toggleModal = () =>{
-        setModal(!modal)
-    }
     // hook example
     const [storedTheme, setTheme] = useSessionStorage("theme");
     useEffect(()=>{
@@ -20,8 +16,7 @@ function Login() {
   return (
       <>
         <nav>
-            <a href="/"><img src={logo}/></a>
-            <a href="/qna">궁금해요</a>
+            <Menu/>
             {/* <Modal/> */}
             {/* {loading && <span>Loading...</span>}
             {!loading && error ? (
