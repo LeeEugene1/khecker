@@ -43,8 +43,13 @@ nav img{
   }
 
   & .modal__form{
-    display: flex;
+    display: none;
+  }
+
+  & .modal__form.active{
+    display: inline-flex;
     flex-direction: column;
+
   }
 }
 

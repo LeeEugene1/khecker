@@ -6,6 +6,8 @@
 export const HOST = 'http://localhost:3000'
 export const USER_LOGIN = 'user/LOGIN'
 export const USER_LOGOUT = 'user/LOGOUT'
+export const USER_SIGNUP = 'user/SIGNUP'
+
 const is_logined = sessionStorage.getItem('is_logined')
 
 //액션생성함수

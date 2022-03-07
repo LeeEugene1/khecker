@@ -5,8 +5,8 @@ const StyledButton = styled.button`
 min-width: 100px;
 /* display: inline-flex;  */
 outline: none; 
-border: 1px solid #1FBB9C; 
 border-radius: 4px; 
+border: none;
 color: #fff; 
 cursor: pointer; 
 /* padding:1rem;  */
@@ -14,15 +14,19 @@ cursor: pointer;
 height: 2.25rem;
 font-size: 1rem;
 /* 색상 */ 
-background: #1FBB9C; 
-&:hover { background: #339af0; }
-&:active { background: #1c7ed6; } 
+background: rgb(0, 204, 170);
+&:hover { background: rgb(0, 181, 148); }
+&:active { background: rgb(0, 181, 148); } 
 /* 기타 */ 
 & + & { margin-left: 1rem; } 
 
 ${props => props.primary && css`
+    border: 1px solid rgb(234, 236, 238); 
     background:#fff;
-    color:#1FBB9C;
+    color:rgb(33, 37, 42);
+    &:hover{
+        background-color:rgb(242, 244, 246);
+    }
 `}
 `; 
 
