@@ -11,11 +11,11 @@ function Logout() {
         dispatch(LOGOUT())
     }
   return (
-    <nav>
-        <Menu></Menu>
+    <>
         {/* {user.name} */}
-        <Button onClick={e=>handleLogout(e)}>로그아웃</Button>
-    </nav>
+        <li><a href=''>내정보</a></li>
+        <li><a href="/" onClick={e=>handleLogout(e)}>로그아웃</a></li>
+    </>
   )
 }
 

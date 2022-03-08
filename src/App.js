@@ -1,19 +1,16 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import './App.css'
 import './index.scss'
 import './default.css'
-import Login from './components/Login'
-import Logout from './components/Logout'
 import Home from './components/Home'
 import Qna from './components/Qna'
 import NotFound from './components/NotFound'
+import Access from './components/Access'
+import Menu from './components/Menu'
 // import axios from 'axios'
 
 function App() {
-
-  const user = useSelector(state => state.user.user)
-
+  const user = useSelector(state => state.user)
   // const baseURL = 'http://localhost:3000/article/61f81fda54a285b7a9ab847a';
   // fetch(baseURL)
   //   .then(resp => resp.json())
@@ -24,12 +21,13 @@ function App() {
   // }
   return (
     <BrowserRouter>
-		{user ? <Logout/> : <Login/>}
+      <Menu user={user}/>
       <Routes>
 {/* <div id="pre"></div> */}
-		<Route path='/' element={<Home/>} /> 
-		<Route path='/qna' element={<Qna/>} /> 
-		<Route path='*' element={<NotFound/>} />
+        <Route path='/' element={<Home/>} /> 
+        <Route path='/access' element={<Access/>} />
+        <Route path='/qna' element={<Qna/>} /> 
+        <Route path='*' element={<NotFound/>} />
       </Routes>
     </BrowserRouter>
   );
