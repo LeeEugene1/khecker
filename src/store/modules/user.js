@@ -6,7 +6,7 @@
 export const HOST = 'http://localhost:3000'
 export const USER_LOGIN = 'user/LOGIN'
 export const USER_LOGOUT = 'user/LOGOUT'
-export const USER_SIGNUP = 'user/SIGNUP'
+export const USER_SIGNUP = 'user/create'
 
 const is_logined = sessionStorage.getItem('is_logined')
 
@@ -52,7 +52,6 @@ export default function user (state = initialState, action){
             return{
                 user:sessionStorage.removeItem('is_logined'),
                 // user:localStorage.removeItem('is_logined'),
-
             }
         default:
             return state

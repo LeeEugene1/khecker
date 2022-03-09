@@ -1,8 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import {LOGOUT} from '../store/modules/user'
-import Menu from './Menu'
-import Button from './styled/button'
+import {LOGOUT} from 'store/modules/user'
 
 function Logout() {
     const dispatch = useDispatch()

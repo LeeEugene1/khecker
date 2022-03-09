@@ -1,14 +1,11 @@
-// import useFetch from '../hooks/useFetch'
 import React, { useEffect, useState } from 'react'
-import useSessionStorage from '../hooks/useSessionStorage';
-import useWindowWidth from '../hooks/useWindowWidth';
-import Modal from './Modal'
-
-import Button from './styled/button'
-import axiosWrapper from '../modules/axiosWrapper'
+import Modal from 'components/Modal'
+import Button from 'components/styled/button'
+import Input from 'components/styled/input'
+import axiosWrapper from 'modules/axiosWrapper'
 import { useDispatch } from 'react-redux'
-import { HOST, LOGIN, SIGNUP, USER_LOGIN, USER_SIGNUP} from '../store/modules/user'
-import { isBlank } from '../common'
+import { HOST, LOGIN, USER_LOGIN, USER_SIGNUP} from 'store/modules/user'
+import { isBlank } from 'common'
 
 function Login() {
   const [isOpen, setIsOpen] = useState(false)
@@ -70,97 +67,15 @@ function Login() {
       alert('회원가입이 완료되었습니다.')
       window.location.href = "/";
   }
-  const [toggleState, setToggleState] = useState(0)
+  const [toggleActive, setToggleActive] = useState(0)
+
   const toggletab = (index) =>{
-      setToggleState(index)
+      setToggleActive(index)
   }
+
   return (
       <>
-        <li>
-			<a onClick={toggleModal}>로그인/회원가입</a>
-            <Modal open={isOpen} onClose={()=>setIsOpen(false)}>
-              {/* <div className='modal'> */}
-                      {/* 로그인/회원가입 탭메뉴 */}
-                      <div className="modal__tab">
-                          <button className='modal__tab--links active' onClick={() => toggletab(0)}>로그인</button>
-                          <button className='modal__tab--links' onClick={() => toggletab(1)}>회원가입</button>
-                      </div>
-                          <form 
-                              className={toggleState === 0 ? "modal__form active" : "modal__form"} 
-                              onSubmit={e => handleLoginSubmit(e)}
-                          >
-                              <input 
-                                  name="email"
-                                  type="text" 
-                                  placeholder="email" 
-                                  value={state.email} 
-                                  onChange={e => setState({
-                                      ...state,
-                                      [e.target.name]:e.target.value})
-                              }/>
-                              <input 
-                                  name="password"
-                                  type="password" 
-                                  placeholder="password" 
-                                  value={state.password} 
-                                  onChange={e => setState({
-                                      ...state,
-                                      [e.target.name]:e.target.value})
-                                  }
-                              />
-                              <div className='modal__button'>
-                                  <Button type="submit">로그인</Button>
-                              </div>
-                          </form>
-                          <form 
-                              className={toggleState === 1 ? 'modal__form active' : 'modal__form'} 
-                              onSubmit={e => handleSignUpSubmit(e)}
-                          >
-                              <input 
-                                  name="nickname"
-                                  type="text" 
-                                  placeholder="nickname" 
-                                  value={state.nickname} 
-                                  onChange={e => setState({
-                                      ...state,
-                                      [e.target.name]:e.target.value})
-                              }/>
-                              <input 
-                                  name="email"
-                                  type="text" 
-                                  placeholder="email" 
-                                  value={state.email} 
-                                  onChange={e => setState({
-                                      ...state,
-                                      [e.target.name]:e.target.value})
-                              }/>
-                              <input 
-                                  name="password"
-                                  type="password" 
-                                  placeholder="password" 
-                                  value={state.password} 
-                                  onChange={e => setState({
-                                      ...state,
-                                      [e.target.name]:e.target.value})
-                                  }
-                              />
-                              <input 
-                                  name="rePassword"
-                                  type="password" 
-                                  placeholder="rePassword" 
-                                  value={state.rePassword} 
-                                  onChange={e => setState({
-                                      ...state,
-                                      [e.target.name]:e.target.value})
-                                  }
-                              />
-                              <div className='modal__button'>
-                                  <Button type="submit">회원가입</Button>
-                              </div>
-                          </form>
-              {/* </div> */}
-            </Modal>
-        </li>
+		<li><a href="/access">로그인/회원가입</a></li>
       </>
   )
 }

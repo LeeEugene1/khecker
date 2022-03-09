@@ -1,3 +1,4 @@
+import 'normalize.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import './index.scss'

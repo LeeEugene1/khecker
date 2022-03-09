@@ -13,6 +13,8 @@ cursor: pointer;
 /* 크기 */
 height: 2.25rem;
 font-size: 1rem;
+font-weight: bold;
+margin-top: 20px;
 /* 색상 */ 
 background: rgb(0, 204, 170);
 &:hover { background: rgb(0, 181, 148); }
@@ -27,6 +29,10 @@ ${props => props.primary && css`
     &:hover{
         background-color:rgb(242, 244, 246);
     }
+`}
+
+${props => props.fullSize && css`
+    width:100% ;
 `}
 `; 
 

@@ -1,7 +1,7 @@
 import React from 'react'
-import logo from './logo.png'
-import Logout from './Logout'
-import Login from './Login'
+import logo from 'components/logo.png'
+import Logout from 'components/Logout'
+import Login from 'components/Login'
 
 function Menu({user}) {
   return (
@@ -13,7 +13,6 @@ function Menu({user}) {
           <ul>
             {user.user ? <Logout/> : <Login/>}
             <li><a href="/qna">궁금해요</a></li>
-            <li><a href="/access">계정</a></li>
           </ul>
         </nav>
     </div>
