@@ -5,6 +5,7 @@ import Input from 'components/styled/input'
 import axiosWrapper from 'modules/axiosWrapper'
 import { useDispatch } from 'react-redux'
 import { HOST, LOGIN, USER_LOGIN, USER_SIGNUP} from 'store/modules/user'
+import FormInput from 'components/FormInput'
 
 function Access() {
   const [state, setState] = useState({
@@ -79,8 +80,9 @@ const toggletab = (index) =>{
 				<form 
 					onSubmit={e => handleLoginSubmit(e)}
 				>
-					<p>이메일</p>
-					<Input fullSize
+					<FormInput
+						label={"이메일"}
+						id="email"
 						name="email"
 						type="text" 
 						placeholder="example@email.com" 
@@ -88,9 +90,11 @@ const toggletab = (index) =>{
 						onChange={e => setState({
 							...state,
 							[e.target.name]:e.target.value})
-					}/>
-					<p>비밀번호</p>
-					<Input fullSize
+						}		
+					/>
+					<FormInput
+						label="비밀번호"
+						id="password"
 						name="password"
 						type="password" 
 						placeholder="비밀번호" 
@@ -107,11 +111,11 @@ const toggletab = (index) =>{
 			</div>
 			<div className={toggleActive === 1 ? 'tab__form active' : 'tab__form'} >
 				<form 
-					
 					onSubmit={e => handleSignUpSubmit(e)}
 				>
-					<p>닉네임</p>
+					<label htmlFor='nickname'>닉네임</label>
 					<Input fullSize
+						id="nickname"
 						name="nickname"
 						type="text" 
 						placeholder="2자이상 10자 미만" 
@@ -120,8 +124,9 @@ const toggletab = (index) =>{
 							...state,
 							[e.target.name]:e.target.value})
 					}/>
-					<p>이메일</p>
+					<label htmlFor='email'>이메일</label>
 					<Input fullSize
+						id="email"
 						name="email"
 						type="text" 
 						placeholder="example@email.com"
@@ -130,8 +135,9 @@ const toggletab = (index) =>{
 							...state,
 							[e.target.name]:e.target.value})
 					}/>
-					<p>비밀번호</p>							  
+					<label htmlFor='password'>비밀번호</label>
 					<Input fullSize
+						id="password"
 						name="password"
 						type="password" 
 						placeholder="특수문자포함 8자이상" 
@@ -141,8 +147,9 @@ const toggletab = (index) =>{
 							[e.target.name]:e.target.value})
 						}
 					/>
-					<p>비밀번호 확인</p>							  
+					<label htmlFor='rePassword'>비밀번호 확인</label>
 					<Input fullSize
+						id="rePassword"
 						name="rePassword"
 						type="password" 
 						placeholder="비밀번호 다시 입력" 

@@ -8,9 +8,20 @@ import Qna from './components/Qna'
 import NotFound from './components/NotFound'
 import Access from './components/Access'
 import Menu from './components/Menu'
+import { createContext, useState } from 'react'
 // import axios from 'axios'
 
+const initialFormData = {
+  id:'',
+  pw:'',
+  rePw:'',
+}
+export const FormContext = createContext({
+  formState:initialFormData,
+  setFormData: () =>{},
+})
 function App() {
+  const [formData, setFormData] = useState(initialFormData)
   const user = useSelector(state => state.user)
   // const baseURL = 'http://localhost:3000/article/61f81fda54a285b7a9ab847a';
   // fetch(baseURL)
@@ -21,6 +32,7 @@ function App() {
   //   document.querySelector("#pre").innerHTML = JSON.stringify(data, null, 2);
   // }
   return (
+    <FormContext.Provider value={{formData, setFormData}}>
     <BrowserRouter>
       <Menu user={user}/>
       <Routes>
@@ -31,6 +43,7 @@ function App() {
         <Route path='*' element={<NotFound/>} />
       </Routes>
     </BrowserRouter>
+    </FormContext.Provider>
   );
 }
 
