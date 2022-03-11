@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Modal from 'components/Modal'
-import Button from 'components/styled/button'
-import Input from 'components/styled/input'
 import axiosWrapper from 'modules/axiosWrapper'
 import { useDispatch } from 'react-redux'
 import { HOST, LOGIN, USER_LOGIN, USER_SIGNUP} from 'store/modules/user'
-import { isBlank } from 'common'
 
 function Login() {
   const [isOpen, setIsOpen] = useState(false)
@@ -22,9 +18,6 @@ function Login() {
   const dispatch = useDispatch()
   const handleLoginSubmit = e =>{
       e.preventDefault()
-      if(!isBlank(state.email,'이메일을 입력해주세요'))return false
-      if(!isBlank(state.password,'비밀번호를 입력해주세요'))return false
-      
       const url = `${HOST}/${USER_LOGIN}`
       const requestBody = {
           email:state.email,
@@ -50,13 +43,6 @@ function Login() {
   }
   const handleSignUpSubmit = e =>{
       e.preventDefault()
-      if(!isBlank(state.nickname,'닉네임을 입력해주세요'))return false
-      if(!isBlank(state.email,'이메일을 입력해주세요'))return false
-      if(!isBlank(state.password,'비밀번호를 입력해주세요'))return false
-      if(state.password !== state.rePassword ){
-          alert('비밀번호가 다릅니다')
-          return false
-      }
       const url = `${HOST}/${USER_SIGNUP}`
       const requestBody = {
           email:state.email,

@@ -1,23 +1,58 @@
-import { FormContext } from 'App'
-import Input from 'components/styled/input'
-import { useContext, useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-const FormInput = ({id, label, inputProps}) =>{
-    const please = useRef('')
-    const {formData, setFormData} = useContext(FormContext)
+import {EMAIL_REGEX, PW_REGEX, ERROR_MSG} from 'common'
+
+const FormInput = ({id, label, ...inputProps}) =>{
+    const inputSelected = useRef(null)
+    const initialErrorMessage = {
+        id:'',
+        email:'',
+        password:'',
+        confirmedPassword:'',
+    }
+    const [errorMessage,setErrorMessage] = useState(initialErrorMessage)
+    useEffect(()=>{
+        if(id === 'email'){
+            inputSelected.current.focus()
+        }
+    },[])
+    
+    const checkRegex = (id, inputProps) =>{
+        let result
+        // console.log(inputProps.value.length)
+        if(inputProps.value.length === 0){
+            result = 'required'
+        }else{
+            switch(id){
+                case 'email':
+                    result = EMAIL_REGEX.test(inputProps.value) ? true : 'invalidEmail'
+                    break
+                case 'password' :
+                    result = PW_REGEX.test(inputProps.value) ? true : 'invalidPassword'
+                    break
+                default:
+                    return
+            }
+        }
+        setErrorMessage({
+            ...errorMessage,
+            [id] : result
+        })
+    }
 
     return(
-        <>
+        <div className='tab__input'>
             <label htmlFor={id}>{label}</label>
-            <Input fullSize
+            <input
                 id={id}
-                value={formData[id]}
-                onChange={(e)=>setFormData({
-                    ...formData, [id]:e.target.value
-                })}
+                ref={inputSelected}
+                onBlur={() => {
+                    checkRegex(id, inputProps)
+                }}
                 {...inputProps}
             />
-        </>
+            <div className='tab__input--error'>{ERROR_MSG[errorMessage[id]]}</div>
+        </div>
     )
 }
 export default FormInput

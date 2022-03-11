@@ -14,7 +14,6 @@ cursor: pointer;
 height: 2.25rem;
 font-size: 1rem;
 font-weight: bold;
-margin-top: 20px;
 /* 색상 */ 
 background: rgb(0, 204, 170);
 &:hover { background: rgb(0, 181, 148); }

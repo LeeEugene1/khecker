@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { isBlank } from 'common'
 import Button from 'components/styled/button'
-import Input from 'components/styled/input'
 import axiosWrapper from 'modules/axiosWrapper'
 import { useDispatch } from 'react-redux'
 import { HOST, LOGIN, USER_LOGIN, USER_SIGNUP} from 'store/modules/user'
@@ -17,9 +16,6 @@ function Access() {
 const dispatch = useDispatch()
 const handleLoginSubmit = e =>{
     e.preventDefault()
-    if(!isBlank(state.email,'이메일을 입력해주세요'))return false
-    if(!isBlank(state.password,'비밀번호를 입력해주세요'))return false
-    
     const url = `${HOST}/${USER_LOGIN}`
     const requestBody = {
         email:state.email,
@@ -47,13 +43,6 @@ const handleLoginSubmit = e =>{
 
 const handleSignUpSubmit = e =>{
     e.preventDefault()
-    if(!isBlank(state.nickname,'닉네임을 입력해주세요'))return false
-    if(!isBlank(state.email,'이메일을 입력해주세요'))return false
-    if(!isBlank(state.password,'비밀번호를 입력해주세요'))return false
-    if(state.password !== state.rePassword ){
-        alert('비밀번호가 다릅니다')
-        return false
-    }
     const url = `${HOST}/${USER_SIGNUP}`
     const requestBody = {
         email:state.email,
@@ -90,13 +79,13 @@ const toggletab = (index) =>{
 						onChange={e => setState({
 							...state,
 							[e.target.name]:e.target.value})
-						}		
+						}
 					/>
 					<FormInput
-						label="비밀번호"
+						label={"비밀번호"}
 						id="password"
 						name="password"
-						type="password" 
+						type="password"
 						placeholder="비밀번호" 
 						value={state.password} 
 						onChange={e => setState({
@@ -109,23 +98,13 @@ const toggletab = (index) =>{
 					</div>
 				</form>
 			</div>
+
 			<div className={toggleActive === 1 ? 'tab__form active' : 'tab__form'} >
 				<form 
 					onSubmit={e => handleSignUpSubmit(e)}
 				>
-					<label htmlFor='nickname'>닉네임</label>
-					<Input fullSize
-						id="nickname"
-						name="nickname"
-						type="text" 
-						placeholder="2자이상 10자 미만" 
-						value={state.nickname} 
-						onChange={e => setState({
-							...state,
-							[e.target.name]:e.target.value})
-					}/>
-					<label htmlFor='email'>이메일</label>
-					<Input fullSize
+					<FormInput
+						label={'이메일'}
 						id="email"
 						name="email"
 						type="text" 
@@ -135,8 +114,19 @@ const toggletab = (index) =>{
 							...state,
 							[e.target.name]:e.target.value})
 					}/>
-					<label htmlFor='password'>비밀번호</label>
-					<Input fullSize
+					<FormInput
+						label={"닉네임"}
+						id="nickname"
+						name="nickname"
+						type="text" 
+						placeholder="2자이상 10자 미만" 
+						value={state.nickname} 
+						onChange={e => setState({
+							...state,
+							[e.target.name]:e.target.value})
+					}/>
+					<FormInput
+						label={'비밀번호'}
 						id="password"
 						name="password"
 						type="password" 
@@ -147,8 +137,8 @@ const toggletab = (index) =>{
 							[e.target.name]:e.target.value})
 						}
 					/>
-					<label htmlFor='rePassword'>비밀번호 확인</label>
-					<Input fullSize
+					<FormInput
+						label={'비밀번호 확인'}
 						id="rePassword"
 						name="rePassword"
 						type="password" 
