@@ -12,7 +12,7 @@ function Login() {
   const [state, setState] = useState({
       email:'',
       password:'',
-      rePassword:'',
+      conformPassword:'',
       nickname:'',
   })
   const dispatch = useDispatch()

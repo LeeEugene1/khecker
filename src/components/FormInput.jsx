@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import {EMAIL_REGEX, PW_REGEX, ERROR_MSG} from 'common'
+import {EMAIL_REGEX, PW_REGEX, ERROR_MSG, NICKNAME_REGEX } from 'common'
 
 const FormInput = ({id, label, ...inputProps}) =>{
     const inputSelected = useRef(null)
@@ -18,8 +18,8 @@ const FormInput = ({id, label, ...inputProps}) =>{
     },[])
     
     const checkRegex = (id, inputProps) =>{
+        console.log(inputProps.value)
         let result
-        // console.log(inputProps.value.length)
         if(inputProps.value.length === 0){
             result = 'required'
         }else{
@@ -29,6 +29,12 @@ const FormInput = ({id, label, ...inputProps}) =>{
                     break
                 case 'password' :
                     result = PW_REGEX.test(inputProps.value) ? true : 'invalidPassword'
+                    break
+                case 'confirmPassword':
+                    result = inputProps.value ===  errorMessage['password'] ? true : 'invalidPasswordCheck'
+                    break
+                case 'nickname':
+                    result = NICKNAME_REGEX.test(inputProps.value) ? true : 'invalidNickname'
                     break
                 default:
                     return

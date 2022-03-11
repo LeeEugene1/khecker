@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { isBlank } from 'common'
 import Button from 'components/styled/button'
 import axiosWrapper from 'modules/axiosWrapper'
 import { useDispatch } from 'react-redux'
@@ -10,7 +9,7 @@ function Access() {
   const [state, setState] = useState({
     email:'',
     password:'',
-    rePassword:'',
+    conformPassword:'',
     nickname:'',
 })
 const dispatch = useDispatch()
@@ -139,11 +138,11 @@ const toggletab = (index) =>{
 					/>
 					<FormInput
 						label={'비밀번호 확인'}
-						id="rePassword"
-						name="rePassword"
+						id="conformPassword"
+						name="conformPassword"
 						type="password" 
 						placeholder="비밀번호 다시 입력" 
-						value={state.rePassword} 
+						value={state.conformPassword} 
 						onChange={e => setState({
 							...state,
 							[e.target.name]:e.target.value})
