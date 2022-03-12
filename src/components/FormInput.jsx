@@ -2,48 +2,44 @@ import { useEffect, useRef, useState } from 'react'
 
 import {EMAIL_REGEX, PW_REGEX, ERROR_MSG, NICKNAME_REGEX } from 'common'
 
-const FormInput = ({id, label, ...inputProps}) =>{
+const FormInput = ({id, label, errorMessage, setErrorMessage, state, setState, ...inputProps}) =>{
     const inputSelected = useRef(null)
-    const initialErrorMessage = {
-        id:'',
-        email:'',
-        password:'',
-        confirmedPassword:'',
-    }
-    const [errorMessage,setErrorMessage] = useState(initialErrorMessage)
+
     useEffect(()=>{
         if(id === 'email'){
             inputSelected.current.focus()
         }
     },[])
     
-    const checkRegex = (id, inputProps) =>{
-        console.log(inputProps.value)
+    const checkRegex = (inputId) =>{
+        const value = state[inputId]
         let result
-        if(inputProps.value.length === 0){
+        if(value.length === 0){
             result = 'required'
         }else{
-            switch(id){
+            switch(inputId){
                 case 'email':
-                    result = EMAIL_REGEX.test(inputProps.value) ? true : 'invalidEmail'
+                    result = EMAIL_REGEX.test(value) ? true : 'invalidEmail'
                     break
                 case 'password' :
-                    result = PW_REGEX.test(inputProps.value) ? true : 'invalidPassword'
+                    result = PW_REGEX.test(value) ? true : 'invalidPassword'
+                    checkRegex('confirmPassword')
                     break
                 case 'confirmPassword':
-                    result = inputProps.value ===  errorMessage['password'] ? true : 'invalidPasswordCheck'
+                    result =
+                        value ===  state['password'] ? true : 'invalidPasswordCheck'
                     break
                 case 'nickname':
-                    result = NICKNAME_REGEX.test(inputProps.value) ? true : 'invalidNickname'
+                    result = NICKNAME_REGEX.test(value) ? true : 'invalidNickname'
                     break
                 default:
                     return
             }
         }
-        setErrorMessage({
-            ...errorMessage,
-            [id] : result
-        })
+        setErrorMessage((prev) => ({
+            ...prev,
+            [inputId] : result
+        }))
     }
 
     return(
@@ -52,12 +48,15 @@ const FormInput = ({id, label, ...inputProps}) =>{
             <input
                 id={id}
                 ref={inputSelected}
-                onBlur={() => {
-                    checkRegex(id, inputProps)
-                }}
+                onChange={(e)=>{
+                    setState((prev)=>({...prev, [id]:e.target.value})
+                    )}}
+                onBlur={()=>checkRegex(id)}
                 {...inputProps}
             />
-            <div className='tab__input--error'>{ERROR_MSG[errorMessage[id]]}</div>
+            <div className='tab__input--error'>
+                { errorMessage[id] !== true ? ERROR_MSG[errorMessage[id]] : '' }
+            </div>
         </div>
     )
 }

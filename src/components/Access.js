@@ -6,12 +6,29 @@ import { HOST, LOGIN, USER_LOGIN, USER_SIGNUP} from 'store/modules/user'
 import FormInput from 'components/FormInput'
 
 function Access() {
-  const [state, setState] = useState({
+const initialState = {
     email:'',
     password:'',
-    conformPassword:'',
+    confirmPassword:'',
     nickname:'',
-})
+}
+const [state, setState] = useState(initialState)
+
+function changeState(e){
+	setState({
+	...state,
+	[e.target.name]:e.target.value})
+}
+
+const initialErrorMessage = {
+	id:'',
+	email:'',
+	password:'',
+	confirmPassword:'',
+	nickname:'',
+}
+const [errorMessage,setErrorMessage] = useState(initialErrorMessage)
+
 const dispatch = useDispatch()
 const handleLoginSubmit = e =>{
     e.preventDefault()
@@ -55,6 +72,8 @@ const handleSignUpSubmit = e =>{
 const [toggleActive, setToggleActive] = useState(0)
 
 const toggletab = (index) =>{
+	setState(initialState)
+	setErrorMessage(initialErrorMessage)
     setToggleActive(index)
 }
   return (
@@ -70,27 +89,27 @@ const toggletab = (index) =>{
 				>
 					<FormInput
 						label={"이메일"}
-						id="email"
+						id={"email"}
 						name="email"
 						type="text" 
 						placeholder="example@email.com" 
 						value={state.email} 
-						onChange={e => setState({
-							...state,
-							[e.target.name]:e.target.value})
-						}
+						onChange={changeState}
+						state={state}
+						errorMessage = {errorMessage}
+						setErrorMessage = {setErrorMessage}
 					/>
 					<FormInput
 						label={"비밀번호"}
-						id="password"
+						id={"password"}
 						name="password"
 						type="password"
 						placeholder="비밀번호" 
 						value={state.password} 
-						onChange={e => setState({
-							...state,
-							[e.target.name]:e.target.value})
-						}
+						onChange={changeState}
+						state={state}
+						errorMessage = {errorMessage}
+						setErrorMessage = {setErrorMessage}
 					/>
 					<div className='modal__button'>
 						<Button type="submit" fullSize>로그인</Button>
@@ -109,10 +128,11 @@ const toggletab = (index) =>{
 						type="text" 
 						placeholder="example@email.com"
 						value={state.email} 
-						onChange={e => setState({
-							...state,
-							[e.target.name]:e.target.value})
-					}/>
+						onChange={changeState}
+						state={state}
+						errorMessage = {errorMessage}
+						setErrorMessage = {setErrorMessage}
+					/>
 					<FormInput
 						label={"닉네임"}
 						id="nickname"
@@ -120,10 +140,11 @@ const toggletab = (index) =>{
 						type="text" 
 						placeholder="2자이상 10자 미만" 
 						value={state.nickname} 
-						onChange={e => setState({
-							...state,
-							[e.target.name]:e.target.value})
-					}/>
+						onChange={changeState}
+						state={state}
+						errorMessage = {errorMessage}
+						setErrorMessage = {setErrorMessage}
+					/>
 					<FormInput
 						label={'비밀번호'}
 						id="password"
@@ -131,22 +152,22 @@ const toggletab = (index) =>{
 						type="password" 
 						placeholder="특수문자포함 8자이상" 
 						value={state.password} 
-						onChange={e => setState({
-							...state,
-							[e.target.name]:e.target.value})
-						}
+						onChange={changeState}
+						state={state}
+						errorMessage = {errorMessage}
+						setErrorMessage = {setErrorMessage}
 					/>
 					<FormInput
 						label={'비밀번호 확인'}
-						id="conformPassword"
-						name="conformPassword"
+						id="confirmPassword"
+						name="confirmPassword"
 						type="password" 
 						placeholder="비밀번호 다시 입력" 
-						value={state.conformPassword} 
-						onChange={e => setState({
-							...state,
-							[e.target.name]:e.target.value})
-						}
+						value={state.confirmPassword} 
+						onChange={changeState}
+						state={state}
+						errorMessage = {errorMessage}
+						setErrorMessage = {setErrorMessage}
 					/>
 					<div className='modal__button'>
 						<Button fullSize type="submit">회원가입</Button>
